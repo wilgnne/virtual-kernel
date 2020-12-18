@@ -1,0 +1,28 @@
+{
+  "name": "miniso",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prestart": "yarn build",
+    "start": "npm-run-all -p start:server start:web",
+    "start:server": "yarn workspace @miniso/server run start",
+    "start:web": "npx serve -s packages/web/build",
+    "dev": "npm-run-all -p dev:server dev:kernel dev:web",
+    "dev:server": "yarn workspace @miniso/server run dev",
+    "dev:kernel": "yarn workspace @miniso/kernel run dev",
+    "dev:web": "yarn workspace @miniso/web run dev",
+    "build": "yarn workspaces run build"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "repository": "https://github.com/netsys-furg/miniso-124827-wilgnne_khawan.git",
+  "author": "Wilgnne Khawan <wilgnne.kba@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.1.3"
+  }
+}
