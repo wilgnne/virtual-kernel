@@ -25,7 +25,7 @@ yarn install or npm install
 ## Iniciar Projeto
 
 ```python
-yarn start or npm run start
+yarn dev or npm run dev
 ```
 
 # Uso
@@ -33,14 +33,7 @@ yarn start or npm run start
 Ao se iniciar o projeto, em um terminal, uma mensagem semelhante será exibia, basta acessar uma das URLs através de seu navegados para obter acesso a aplicação.
 
 ```bash
-   ┌────────────────────────────────────────────────────┐
-   │                                                    │
-   │   Serving!                                         │
-   │                                                    │
-   │   - Local:            http://localhost:5000        │
-   │   - On Your Network:  http://172.23.160.173:5000   │
-   │                                                    │
-   └────────────────────────────────────────────────────┘
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
 ```
 Insira o conteudo do arquivo de entrada no teminal flutuante.
 
@@ -54,15 +47,11 @@ Aprecie a vista!
 
 ## Web
 
-O projeto web foi desenvolvido em React, e o ponto de entrada para a aplicação é o arquivo `packages/web/src/App.tsx`
-
-## Server
-
-Neste projeto foi utilizado um servidor webSocket para comunicação em tempo real com o front-end, e o ponto de entrada para a aplicação é o arquivo `packages/server/src/server.ts`
+O projeto web foi desenvolvido em React e NextJS, e o ponto de entrada para a aplicação é o arquivo `src/pages/index.tsx`
 
 ## Kernel
 
-Aqui foi desenvolvida toda a regra de negocio do kernel, o ponto de entrada para a aplicação é o arquivo `packages/kernel/src/index.ts`
+Aqui foi desenvolvida toda a regra de negocio do kernel, o ponto de entrada para a aplicação é o arquivo `src/services/kernel/index.ts`
 
 ## Autor
 

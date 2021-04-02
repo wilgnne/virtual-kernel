@@ -18,8 +18,8 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"dbaeumer.vscode-eslint",
-		"donjayamanne.git-extension-pack",
-		"mhutchie.git-graph"
+		"mhutchie.git-graph",
+		"editorconfig.editorconfig"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

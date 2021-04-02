@@ -3,6 +3,11 @@ import roundRobin from "./algorithms/roundRobin"
 import priority from "./algorithms/priority"
 import Process, { IProcess } from "./process"
 
+function SchedulerException(message) {
+  this.message = message;
+  this.name = "SchedulerException";
+}
+
 export type SchedulerAlgorithm = (scheduler: Scheduler) => void
 
 export const schedulerAlgorithms: { [id: string]: SchedulerAlgorithm } = {
@@ -29,10 +34,14 @@ class Scheduler {
   algorithm: SchedulerAlgorithm
   algorithmName: string
 
-  constructor(algorithm: SchedulerAlgorithm, algorithmName: string, quantum: number) {
-    this.quantum = quantum
-    this.algorithmName = algorithmName
-    this.algorithm = algorithm
+  constructor(config: SchedulerConfig) {
+    this.quantum = config.quantum
+    this.algorithmName = config.algorithm
+
+    this.algorithm = schedulerAlgorithms[this.algorithmName]
+    if (this.algorithm === undefined)
+      throw new SchedulerException("Invalid Algorithm Name")
+
     this.currentProcessIndex = -1
     this.processList = []
     this.currentProcess = undefined

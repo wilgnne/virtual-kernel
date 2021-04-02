@@ -1,13 +1,13 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { Tr, Td } from '@chakra-ui/react'
 
-import { Process } from '@miniso/kernel'
+import { Process } from '../../services/kernel'
 
 type ProcessItemProps = {
   process: Process
 }
 
-const ProcessItem: React.FC<ProcessItemProps> = ({ process }) => {
+const ProcessItem = ({ process }: ProcessItemProps) => {
   return (
     <Tr>
       <Td>{process.name}</Td>
@@ -22,4 +22,4 @@ const ProcessItem: React.FC<ProcessItemProps> = ({ process }) => {
   )
 }
 
-export default memo(ProcessItem)
+export default ProcessItem
