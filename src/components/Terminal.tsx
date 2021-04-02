@@ -1,30 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Box, Textarea } from '@chakra-ui/react'
-import { Socket } from 'socket.io-client'
 
-import { IProcess, SchedulerConfig } from '@miniso/kernel'
+import KernelContext from './KernelContext'
 
-type TerminalProps = {
-  socket?: typeof Socket
-}
+import { IProcess, SchedulerConfig } from '../services/kernel'
 
-const Terminal: React.FC<TerminalProps> = ({ socket }) => {
+
+const Terminal = () => {
   const [command, setCommand] = useState<string>("")
+
+  const { updateKernel } = useContext(KernelContext)
 
   function decoder() {
     const commands = command.split("\n")
+    let schedulerConfig: SchedulerConfig = undefined
+    let processes: IProcess[] = []
 
     commands.forEach(command => {
       const args = command.split("|")
 
       switch (args.length) {
         case 2:
-          const schedulerConfig: SchedulerConfig = {
+          schedulerConfig = {
             algorithm: args[0],
             quantum: parseInt(args[1]),
             interval: 100
           }
-          socket?.emit("new", schedulerConfig)
           break;
 
         case 6:
@@ -36,13 +37,15 @@ const Terminal: React.FC<TerminalProps> = ({ socket }) => {
             uid: parseInt(args[4]),
             mem: parseInt(args[5])
           }
-          socket?.emit("newProcess", process)
+          processes.push(process)
           break;
 
         default:
           break;
       }
     })
+
+    updateKernel(schedulerConfig, processes)
   }
 
   function keyHandle(key: React.KeyboardEvent<HTMLTextAreaElement>) {

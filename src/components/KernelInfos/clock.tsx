@@ -1,19 +1,23 @@
-import React, { memo } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Stat, StatLabel, StatNumber } from '@chakra-ui/react'
 
-import Kernel from '@miniso/kernel'
+import KernelContext from '../KernelContext'
 
-type ClockProps = {
-  kernel?: Kernel
-}
+const Clock = () => {
+  const [clock, setClock] = useState(0)
 
-const Clock: React.FC<ClockProps> = ({ kernel }) => {
+  const { registerCallback } = useContext(KernelContext)
+
+  useEffect(() => {
+    registerCallback((kernel) => setClock(kernel.clk))
+  }, [])
+
   return (
     <Stat>
       <StatLabel>Clock</StatLabel>
-      <StatNumber>{kernel?.clk}</StatNumber>
+      <StatNumber>{clock}</StatNumber>
     </Stat>
   )
 }
 
-export default memo(Clock)
+export default Clock

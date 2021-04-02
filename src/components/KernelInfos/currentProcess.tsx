@@ -1,20 +1,26 @@
-import React, { memo } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Stat, StatLabel, StatNumber, StatHelpText } from '@chakra-ui/react'
 
-import { Process } from '@miniso/kernel';
+import KernelContext from '../KernelContext'
 
-type CurrentProcessProps = {
-  process?: Process
-}
+const CurrentProcess = () => {
+  const [name, setName] = useState<string>(undefined)
+  const [time, setTime] = useState<number>(undefined)
 
-const CurrentProcess: React.FC<CurrentProcessProps> = ({ process }) => {
+  const { registerCallback } = useContext(KernelContext)
+
+  useEffect(() => {
+    registerCallback((kernel) => setName(kernel.scheduler.currentProcess.name))
+    registerCallback((kernel) => setTime(kernel.scheduler.currentProcess.time))
+  }, [])
+
   return (
     <Stat>
       <StatLabel>Current Process</StatLabel>
-      <StatNumber>{process?.name || "Free"}</StatNumber>
-      <StatHelpText>Exec Time: {process?.time || ""}</StatHelpText>
+      <StatNumber>{name || "Free"}</StatNumber>
+      <StatHelpText>Exec Time: {time || ""}</StatHelpText>
     </Stat>
   )
 }
 
-export default memo(CurrentProcess)
+export default CurrentProcess

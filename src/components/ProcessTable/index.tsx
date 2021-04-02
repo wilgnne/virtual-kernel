@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {
   Box,
   Heading,
@@ -9,15 +9,20 @@ import {
   Tr
 } from "@chakra-ui/react"
 
-import { Process } from '@miniso/kernel'
+import KernelContext from '../KernelContext'
+import { Process } from '../../services/kernel'
 
-import ProcessItem from './ProcessItem'
+import ProcessItem from './Item'
 
-type ProcessTableProps = {
-  processes?: Process[]
-}
+const ProcessTable = () => {
+  const [processes, setProcesses] = useState<Process[]>([])
 
-const ProcessTable: React.FC<ProcessTableProps> = ({ processes }) => {
+  const { registerCallback } = useContext(KernelContext)
+
+  useEffect(() => {
+    registerCallback((kernel) => setProcesses([...kernel.scheduler?.processList]))
+  }, [])
+
   return (
     <Box h="100%">
       <Heading size="md">Process Table</Heading>
@@ -44,4 +49,4 @@ const ProcessTable: React.FC<ProcessTableProps> = ({ processes }) => {
   );
 }
 
-export default memo(ProcessTable)
+export default ProcessTable

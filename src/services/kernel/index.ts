@@ -18,11 +18,11 @@ class Kernel {
     return this.clockIntervalID === undefined
   }
 
-  constructor(schedulerAlgotith: SchedulerAlgorithm, schedulerConfig: SchedulerConfig, clockCallback?: ClockCallback, clockInterval = 1000) {
+  constructor(schedulerConfig: SchedulerConfig, clockCallback?: ClockCallback, clockInterval = 1000) {
     this.clk = 0
     this.clockCallback = clockCallback
 
-    this.scheduler = new Scheduler(schedulerAlgotith, schedulerConfig.algorithm, schedulerConfig.quantum)
+    this.scheduler = new Scheduler(schedulerConfig)
 
     this.clockInterval = clockInterval
     this.start()
@@ -50,6 +50,7 @@ class Kernel {
     if (this.clockIntervalID) {
       clearInterval(this.clockIntervalID)
       this.clockIntervalID = undefined
+      this.clock()
     }
     else this.start()
   }
