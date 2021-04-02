@@ -1,13 +1,15 @@
 import Scheduler, { SchedulerAlgorithm, SchedulerConfig } from './scheduler'
 import Process, { IProcess } from './scheduler/process'
 
+export type ClockCallback = (kernel: Kernel) => void
+
 /**
  * Abstração do Kernel
  */
 class Kernel {
   clk = -1
   scheduler: Scheduler
-  private clockCallback: () => void | undefined
+  private clockCallback: ClockCallback | undefined
 
   private clockIntervalID: NodeJS.Timeout
   private clockInterval: number
@@ -16,7 +18,7 @@ class Kernel {
     return this.clockIntervalID === undefined
   }
 
-  constructor(schedulerAlgotith: SchedulerAlgorithm, schedulerConfig: SchedulerConfig, clockCallback?: () => void, clockInterval = 1000) {
+  constructor(schedulerAlgotith: SchedulerAlgorithm, schedulerConfig: SchedulerConfig, clockCallback?: ClockCallback, clockInterval = 1000) {
     this.clk = 0
     this.clockCallback = clockCallback
 
@@ -31,7 +33,7 @@ class Kernel {
   clock = () => {
     this.clk = this.clk + 1
     this.scheduler.clock()
-    if (this.clockCallback) this.clockCallback()
+    if (this.clockCallback) this.clockCallback(this)
   }
 
   /**
@@ -53,5 +55,5 @@ class Kernel {
   }
 }
 
-export { IProcess, Process, SchedulerConfig }
+export type { IProcess, Process, SchedulerConfig }
 export default Kernel

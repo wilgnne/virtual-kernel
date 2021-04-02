@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Box, Button, Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
-import io, { Socket } from 'socket.io-client'
 
-import Kernel from '@miniso/kernel'
+import Kernel from '../services/kernel'
 
-import ProcessTable from './components/ProcessTable'
-import KernelInfos from './components/KernelInfos'
-import Terminal from './components/Terminal'
+import ProcessTable from '../components/ProcessTable'
+import KernelInfos from '../components/KernelInfos'
+import Terminal from '../components/Terminal'
 
-const App = () => {
-  const [socket, setSocket] = useState<typeof Socket>()
-  const [kernel, setKernel] = useState<Kernel>()
+const Scheduler = () => {
+  //const [socket, setSocket] = useState<typeof Socket>()
+  const [kernel, setKernel] = useState<Kernel>(undefined)
+  const callbacks = useRef([])
 
   useEffect(() => {
-    const socket = io(process.env.REACT_APP_API || "http://localhost:3333");
+    /*const socket = io(process.env.REACT_APP_API || "http://localhost:3333");
     setSocket(socket)
 
     socket.on("connect", () => console.log("Connected"))
@@ -25,7 +25,7 @@ const App = () => {
 
     socket.on("algorithmError", () => {
       alert("The select algorithm is not supported")
-    })
+    })*/
   }, [])
 
   return (
@@ -66,7 +66,7 @@ const App = () => {
             <Heading size="md">Kernel Status: {kernel ? "Created" : "OFF"}</Heading>
             <Button
               colorScheme="green"
-              onClick={() => socket?.emit("stop")}
+              // onClick={() => socket?.emit("stop")}
             >
               Play/Stop Simulation
             </Button>
@@ -96,9 +96,9 @@ const App = () => {
         </GridItem>
       </Grid>
 
-      <Terminal socket={socket} />
+      <Terminal />
     </Box>
   );
 }
 
-export default App;
+export default Scheduler;
