@@ -32,6 +32,8 @@ yarn dev or npm run dev
 
 Ao se iniciar o projeto, em um terminal, uma mensagem semelhante será exibia, basta acessar uma das URLs através de seu navegados para obter acesso a aplicação.
 
+Caso deseje utilizar o gerenciador de memória, basta clicar no link Memory, no canto superior direito.
+
 ```bash
 ready - started server on 0.0.0.0:3000, url: http://localhost:3000
 ```

@@ -8,6 +8,7 @@ import Kernel, { ClockCallback, IProcess, SchedulerConfig } from '../services/ke
 import ProcessTable from '../components/ProcessTable'
 import KernelInfos from '../components/KernelInfos'
 import Terminal from '../components/Terminal'
+import NavBar from '../components/Navbar'
 
 const Scheduler = () => {
   //const [socket, setSocket] = useState<typeof Socket>()
@@ -41,33 +42,47 @@ const Scheduler = () => {
     procecess?.forEach(process => currentKernel.scheduler.newProcess(process))
   }
 
-  useEffect(() => {
-    /*const socket = io(process.env.REACT_APP_API || "http://localhost:3333");
-    setSocket(socket)
+  function decoder(command: string) {
+    const commands = command.split("\n")
+    let schedulerConfig: SchedulerConfig = undefined
+    let processes: IProcess[] = []
 
-    socket.on("connect", () => console.log("Connected"))
-    socket.on("disconnect", () => setKernel(undefined))
+    commands.forEach(command => {
+      const args = command.split("|")
 
-    socket.on("clk", (kernel: Kernel) => {
-      setKernel(kernel)
+      switch (args.length) {
+        case 2:
+          schedulerConfig = {
+            algorithm: args[0],
+            quantum: parseInt(args[1]),
+            interval: 100
+          }
+          break;
+
+        case 6:
+          const process: IProcess = {
+            name: args[0],
+            pid: parseInt(args[1]),
+            time: parseInt(args[2]),
+            priority: parseInt(args[3]),
+            uid: parseInt(args[4]),
+            mem: parseInt(args[5])
+          }
+          processes.push(process)
+          break;
+
+        default:
+          break;
+      }
     })
 
-    socket.on("algorithmError", () => {
-      alert("The select algorithm is not supported")
-    })*/
-  }, [])
+    updateKernel(schedulerConfig, processes)
+  }
 
   return (
     <KernelContext.Provider value={{ registerCallback, updateKernel }}>
       <Box margin="0 40px">
-        <Box
-          margin="48px 0 0 0"
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Heading color="blue.800">Virtual Kernel 👨🏻‍💻</Heading>
-        </Box>
+        <NavBar />
 
         <Grid
           marginTop="32px"
@@ -100,7 +115,7 @@ const Scheduler = () => {
                 onClick={() => kernel?.stop()}
               >
                 {isPaused ? "Play" : "Stop"} Simulation
-            </Button>
+              </Button>
             </Flex>
           </GridItem>
           <GridItem
@@ -127,7 +142,7 @@ const Scheduler = () => {
           </GridItem>
         </Grid>
 
-        <Terminal />
+        <Terminal decoder={decoder} />
       </Box>
     </KernelContext.Provider>
   );

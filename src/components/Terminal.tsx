@@ -5,53 +5,19 @@ import KernelContext from './KernelContext'
 
 import { IProcess, SchedulerConfig } from '../services/kernel'
 
+interface TerminalProps {
+  decoder: (command: string) => void
+}
 
-const Terminal = () => {
+const Terminal = ({ decoder }: TerminalProps) => {
   const [command, setCommand] = useState<string>("")
 
   const { updateKernel } = useContext(KernelContext)
 
-  function decoder() {
-    const commands = command.split("\n")
-    let schedulerConfig: SchedulerConfig = undefined
-    let processes: IProcess[] = []
-
-    commands.forEach(command => {
-      const args = command.split("|")
-
-      switch (args.length) {
-        case 2:
-          schedulerConfig = {
-            algorithm: args[0],
-            quantum: parseInt(args[1]),
-            interval: 100
-          }
-          break;
-
-        case 6:
-          const process: IProcess = {
-            name: args[0],
-            pid: parseInt(args[1]),
-            time: parseInt(args[2]),
-            priority: parseInt(args[3]),
-            uid: parseInt(args[4]),
-            mem: parseInt(args[5])
-          }
-          processes.push(process)
-          break;
-
-        default:
-          break;
-      }
-    })
-
-    updateKernel(schedulerConfig, processes)
-  }
-
   function keyHandle(key: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (key.shiftKey === false && key.key === "Enter") {
       console.log('Send');
-      decoder()
+      decoder(command)
       setCommand("")
     }
   }
