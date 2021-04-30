@@ -13,8 +13,8 @@ export function write_iNode(buffer: ArrayBuffer, byteOffset: number, node: iNode
   new DataView(buffer, offset, 1).setUint8(0, node.nodeType)
   offset += 1
 
-  new DataView(buffer, offset, 1).setUint8(0, node.contentSize)
-  offset += 1
+  new DataView(buffer, offset, 2).setUint16(0, node.contentSize)
+  offset += 2
 
   new DataView(buffer, offset, 2).setUint16(0, node.childrensLength)
   offset += 2
@@ -38,8 +38,8 @@ export function read_iNode(buffer: ArrayBuffer, byteOffset: number): iNode {
   const nodeType = new DataView(buffer, offset, 1).getUint8(0)
   offset += 1
 
-  const contentSize = new DataView(buffer, offset, 1).getUint8(0)
-  offset += 1
+  const contentSize = new DataView(buffer, offset, 2).getUint16(0)
+  offset += 2
 
   const childrensLength = new DataView(buffer, offset, 2).getUint16(0)
   offset += 2

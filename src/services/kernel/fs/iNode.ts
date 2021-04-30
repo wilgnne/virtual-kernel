@@ -26,7 +26,7 @@ function create_node(name: string, nodeType: nodeType, childrens = new Uint16Arr
 }
 
 export function get_inode_size(inode: iNode): number {
-  return 4 + inode.nameLength + (inode.childrensLength * 2)
+  return 6 + inode.nameLength + (inode.childrensLength * 2)
 }
 
 export default create_node

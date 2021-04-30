@@ -6,7 +6,7 @@ export interface fsNode {
 }
 
 export function iNodeSizeFromFsNode(node: fsNode) {
-  return 5 + node.iNode.nameLength + (node.iNode.nodeType === nodeType.file ? node.iNode.childrensLength : node.childrens.length) * 2
+  return 6 + node.iNode.nameLength + (node.iNode.nodeType === nodeType.file ? node.iNode.childrensLength : node.childrens.length) * 2
 }
 
 export function get_node(path: string, root: fsNode): fsNode {
