@@ -29,12 +29,8 @@ export function arrayBuffer2uint16Array(data: ArrayBuffer): Uint8Array {
   return new Uint8Array(arr)
 }
 
-export function copy_buffer(from: ArrayBuffer | DataView, to: ArrayBuffer | DataView) {
-  const f = from instanceof DataView ? from : new DataView(from)
+export function copy_buffer(from: ArrayBuffer, to: ArrayBuffer | DataView) {
   const t = to instanceof DataView ? to : new DataView(to)
 
-  const len = to.byteLength < from.byteLength ? to.byteLength : from.byteLength
-  for (let i = 0; i < len; i++) {
-    t.setUint8(i, f.getUint8(i))
-  }
+  new Uint8Array(t.buffer).set(new Uint8Array(from), t.byteOffset)
 }
