@@ -22,6 +22,7 @@ const MenuLinks = ({ isOpen }: MenuLinksProps) => {
       >
         <MenuItem to='/scheduler'>Scheduler</MenuItem>
         <MenuItem to='/memory'>Memory</MenuItem>
+        <MenuItem to='/fs'>File System</MenuItem>
       </Stack>
     </Box>
   )
