@@ -23,6 +23,7 @@ jobs:
         uses: actions/setup-node@v1
       - run: yarn install
       - run: yarn export
+      - run: touch out/.nojekyll
         env:
             CI: true
 
