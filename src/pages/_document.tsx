@@ -10,6 +10,7 @@ class MyDocument extends Document {
     return (
       <Html style={{ height: '100%' }}>
         <Head>
+          <title>Virtual Kernel 👨🏻‍💻</title>
           <link
             rel="shortcut icon"
             type="image/x-icon"
