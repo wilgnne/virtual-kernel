@@ -67,3 +67,9 @@ export function findFreeBlock(hdd: ArrayBuffer, blockSize: number) {
     currentBlock += 1
   }
 }
+
+export function freeBlock(hdd: ArrayBuffer, block: number, blockSize: number) {
+  const blockOffset = block * blockSize
+  const blockView = new DataView(hdd, blockOffset, 1)
+  blockView.setUint8(0, 0)
+}
