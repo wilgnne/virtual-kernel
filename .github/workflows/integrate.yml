@@ -21,8 +21,8 @@ jobs:
 
       - name: Install and Build 🔧
         uses: actions/setup-node@v1
-      - run: npm install
-      - run: npm run export
+      - run: yarn install
+      - run: yarn export
         env:
             CI: true
 

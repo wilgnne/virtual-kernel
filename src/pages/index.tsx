@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { Box, Button, Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
 
 import KernelContext from '../components/KernelContext'
