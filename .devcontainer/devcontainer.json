@@ -19,7 +19,8 @@
 	"extensions": [
 		"dbaeumer.vscode-eslint",
 		"mhutchie.git-graph",
-		"editorconfig.editorconfig"
+		"editorconfig.editorconfig",
+		"esbenp.prettier-vscode"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
