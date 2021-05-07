@@ -10,6 +10,11 @@ class MyDocument extends Document {
     return (
       <Html style={{ height: '100%' }}>
         <Head>
+          <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href={process.env.BACKEND_URL + '/favicon.ico'}
+          />
           <style>
             {`
             #__next { height: 100% }
