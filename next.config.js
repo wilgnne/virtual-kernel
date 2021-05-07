@@ -1,11 +1,5 @@
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/scheduler',
-        permanent: true,
-      },
-    ]
-  },
+  assetPrefix: isProd ? 'https://wilgnne.github.io/virtual-kernel/' : '',
 }

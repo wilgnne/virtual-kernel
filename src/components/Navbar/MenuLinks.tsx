@@ -20,8 +20,9 @@ const MenuLinks = ({ isOpen }: MenuLinksProps) => {
         direction={['column', 'row', 'row', 'row']}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to='/scheduler'>Scheduler</MenuItem>
+        <MenuItem to='/'>Scheduler</MenuItem>
         <MenuItem to='/memory'>Memory</MenuItem>
+        <MenuItem to='/fs'>File System</MenuItem>
       </Stack>
     </Box>
   )
