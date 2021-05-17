@@ -29,6 +29,7 @@ yarn dev or npm run dev
 ```
 
 # Uso
+O projeto esta disponível online em https://wilgnne.github.io/virtual-kernel
 
 Ao se iniciar o projeto, em um terminal, uma mensagem semelhante será exibia, basta acessar uma das URLs através de seu navegados para obter acesso a aplicação.
 
